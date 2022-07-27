@@ -3,6 +3,7 @@ import React, {
 	useReducer,
 	useEffect,
 	useCallback,
+	memo,
 } from "react";
 
 let SET_THEME;
@@ -11,14 +12,14 @@ export const darkModeContext = createContext();
 
 export const darkModeReducer = (state, action) => {
 	switch (action.type) {
-		case SET_THEME:
+		case "SET_THEME":
 			return { ...state, darkMode: action.payload };
 		default:
 			return state;
 	}
 };
 
-export const DarkModeState = (props) => {
+const DarkModeStateMemo = (props) => {
 	const initialState = {
 		darkMode: false,
 	};
@@ -26,6 +27,7 @@ export const DarkModeState = (props) => {
 	const [state, dispatch] = useReducer(darkModeReducer, initialState);
 
 	const setDarkMode = useCallback(async (bool) => {
+		console.log("here", bool);
 		dispatch({ type: "SET_THEME", payload: bool });
 	}, []);
 
@@ -49,3 +51,7 @@ export const DarkModeState = (props) => {
 		</darkModeContext.Provider>
 	);
 };
+
+export default memo(DarkModeStateMemo, () => {
+	console.log("memo");
+});
