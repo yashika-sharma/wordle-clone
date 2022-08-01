@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+	margin: 0px;
+}
+
 .App {
 	text-align: center;
 }
